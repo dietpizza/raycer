@@ -5,7 +5,7 @@ export function AppRoot() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
-      <Route path="/plan/:id" element={<PlanPage />} />
+      <Route path="/plans/:id" element={<PlanPage />} />
     </Routes>
   );
 }
