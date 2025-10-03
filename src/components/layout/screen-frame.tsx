@@ -6,7 +6,7 @@ export type ScreenFrameProps = {
 
 export function ScreenFrame({ children }: ScreenFrameProps) {
   return (
-    <div className="flex flex-col m-auto min-h-screen bg-amber-400 max-w-3xl">
+    <div className="flex flex-col m-auto min-h-screen border-l border-r border-background max-w-3xl">
       {children}
     </div>
   );
