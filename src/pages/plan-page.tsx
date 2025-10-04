@@ -1,8 +1,13 @@
-import { useParams } from "react-router-dom";
 import { ScreenFrame } from "@/components/layout";
+import { PlanSpecCard, UserQueryCard } from "@/components/plans-page";
+
+import { SAMPLE_PLAN_DATA } from "@/SAMPLE_DATA";
 
 export function PlanPage() {
-  const { id } = useParams<{ id: string }>();
-
-  return <ScreenFrame></ScreenFrame>;
+  return (
+    <ScreenFrame className="p-4 gap-2">
+      <UserQueryCard step={SAMPLE_PLAN_DATA.userQuery} />
+      <PlanSpecCard iterations={SAMPLE_PLAN_DATA.planSpec.iterations} />
+    </ScreenFrame>
+  );
 }
