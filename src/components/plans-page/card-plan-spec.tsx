@@ -1,12 +1,11 @@
 import type { FileChange, PlanSpecDataType } from "@/types";
 import { FileChangesRenderer, StepRenderer } from "@/components/shared";
-import { IconButton, Pagination } from "@/components/ui";
+import { Pagination } from "@/components/ui";
 import { useState } from "react";
 import {
   ChatBubbleLeftRightIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { usePlanningData } from "@/hooks/usePlanAnimation";
 
 type PlanSpecCardProps = {
   isLoading?: boolean;
