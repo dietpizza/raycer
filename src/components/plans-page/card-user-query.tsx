@@ -16,7 +16,7 @@ export function UserQueryCard({ step }: UserQueryCardProps) {
     >
       <input type="checkbox" />
       <div className="flex flex-col collapse-title gap-2">
-        <p className="font-semibold">User Query</p>
+        <p className="text-md font-semibold">User Query</p>
         <p className="text-sm">{step.summary}</p>
       </div>
       {step.parts && (
