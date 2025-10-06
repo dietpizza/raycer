@@ -84,13 +84,14 @@ export function PlanSpecChat({ onUpdatePlan, onClose }: PlanSpecChatProps) {
         <XMarkIcon className="h-5 w-5" onClick={onClose} />
       </button>
       <input
+        disabled={isLoading}
         type="text"
         className="input w-full"
         onChange={(e) => setQuery(e.target.value)}
       />
-      <button className="btn" onClick={handleSend}>
+      <button disabled={isLoading} className="btn" onClick={handleSend}>
         {isLoading && <span className="h-4 w-4 loading" />}
-        Send
+        {isLoading ? "Sending" : "Send"}
       </button>
     </div>
   );
