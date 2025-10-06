@@ -15,12 +15,12 @@ type PerFileChangesProps = {
 
 export function PerFileChanges({ perFileChanges }: PerFileChangesProps) {
   return (
-    <>
+    <div className="flex flex-col gap-2">
       <p className="text-md font-semibold">File-by-File Changes</p>
       {perFileChanges.map((e) => (
         <FileChangesRenderer fileName={e.fileName} details={e.details} />
       ))}
-    </>
+    </div>
   );
 }
 

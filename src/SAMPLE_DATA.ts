@@ -1,59 +1,46 @@
 export const SAMPLE_PLAN_DATA = {
   userQuery: {
     summary:
-      "Install `react-router-dom` package, create routes `/` and `/plans/:id`.",
-    parts: [
-      "Install `react-router-dom` package in `package.json`",
-      "Wrap `<App />` with `<BrowserRouter>` in `src/main.tsx`",
-      "Update `src/App.tsx` to use `Routes` and `Route` components for `/` and `/pages/:id` paths",
-      "Create page components in `src/pages/` that render `ScreenFrame` component (inline types, no separate type files)",
-    ],
+      "You know how in some repos i see import K from '@/components', I wanna do that, src is the root -- @. please do it for me",
   },
   planSpec: {
     iterations: [
       {
         observation: {
-          summary: "I examined the current project structure and found:",
+          summary:
+            "This is a Vite + React + TypeScript project that currently doesn't have path aliases configured. The user wants to set up the @ alias to point to the src/ directory, enabling imports like import Component from '@/components' instead of relative paths like '../../components'.",
           parts: [
-            "Named exports for components",
-            "TypeScript prop types defined as separate types",
+            "Configure Vite to resolve the @ alias to the src directory",
+            "Configure TypeScript to understand the @ alias for type checking and IntelliSense",
             "Path aliases using @/ for imports",
-            "Index files (index.ts) for re-exporting components from directories",
-            "DaisyUI classes are already in use (e.g., textarea, btn, btn-neutral in home-page.tsx)",
           ],
         },
         approach: {
           summary:
-            "I'll create a custom auto-resizing textarea component that:",
+            "The implementation requires configuring both Vite and TypeScript to recognize the @ alias:",
           parts: [
-            "Creates the components/ui/ directory structure with the new text-area.tsx component and an index.ts for exports",
-            "Implements auto-resize functionality using React hooks (useRef, useEffect) to dynamically adjust the textarea height based on content",
-            "Applies DaisyUI styling using the textarea class from DaisyUI for consistent theming",
-            "Sets a max-height constraint with overflow handling when content exceeds the limit",
-            "Forwards all standard textarea props using TypeScript's React.TextareaHTMLAttributes for full flexibility",
-            "Follows project conventions with named exports, TypeScript types, and the established component structure",
+            "Vite Configuration: Add the resolve.alias option in vite.config.ts to map @ to the src directory using Node's path module",
+            "TypeScript Configuration: Add baseUrl and paths compiler options in tsconfig.app.json to enable TypeScript to resolve the @ alias for type checking and IDE support",
           ],
         },
         perFileChanges: [
           {
-            fileName: "src/App.tsx",
+            fileName: "tsconfig.app.json",
             details: {
               summary:
-                "I'll create a custom auto-resizing textarea component that",
+                "Update the TypeScript configuration to recognize the @ path alias:",
+              parts: ["Add baseUrl and paths to the compiler object:"],
             },
           },
           {
-            fileName: "src/App2.tsx",
+            fileName: "vite.config.js",
             details: {
               summary:
-                "I'll create a custom auto-resizing textarea component that",
-            },
-          },
-          {
-            fileName: "src/App4.tsx",
-            details: {
-              summary:
-                "I'll create a custom auto-resizing textarea component that",
+                "Update the Vite configuration to add path alias resolution:",
+              parts: [
+                "Import the path module ar the top of the file",
+                "Add the resolve option to the defineConfig object with an alias configuration that maps @ to the src directory",
+              ],
             },
           },
         ],

@@ -11,8 +11,8 @@ export function FileChangesRenderer({
   details,
 }: FileChangesRendererType) {
   return (
-    <div className="flex flex-col">
-      <p className="text-sm font-semibold underline cursor-pointer self-start">
+    <div className="flex flex-col gap-1">
+      <p className="text-xs font-semibold underline cursor-pointer self-start">
         {fileName}
       </p>
       {details.summary && <p className="text-sm">{details.summary}</p>}
