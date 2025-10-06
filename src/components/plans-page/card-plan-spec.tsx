@@ -1,5 +1,5 @@
-import type { PlanSpecDataType } from "@/types";
-import { StepRenderer } from "@/components/shared";
+import type { FileChange, PlanSpecDataType } from "@/types";
+import { FileChangesRenderer, StepRenderer } from "@/components/shared";
 
 type PlanSpecCardProps = {
   iterations: Array<PlanSpecDataType>;
@@ -9,13 +9,31 @@ type PlanSpecDetailProps = {
   detail: PlanSpecDataType;
 };
 
+type PerFileChangesProps = {
+  perFileChanges: FileChange[];
+};
+
+export function PerFileChanges({ perFileChanges }: PerFileChangesProps) {
+  return (
+    <>
+      <p className="text-md font-semibold">File-by-File Changes</p>
+      {perFileChanges.map((e) => (
+        <FileChangesRenderer fileName={e.fileName} details={e.details} />
+      ))}
+    </>
+  );
+}
+
 export function PlanSpecDetail({ detail }: PlanSpecDetailProps) {
-  const { observation, approach } = detail;
+  const { observation, approach, perFileChanges } = detail;
 
   return (
     <div className="flex flex-col gap-4">
       <StepRenderer title="Observations" step={observation} />
       <StepRenderer title="Approach" step={approach} />
+      {perFileChanges?.length && (
+        <PerFileChanges perFileChanges={perFileChanges} />
+      )}
     </div>
   );
 }

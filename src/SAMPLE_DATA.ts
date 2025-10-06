@@ -34,6 +34,29 @@ export const SAMPLE_PLAN_DATA = {
             "Follows project conventions with named exports, TypeScript types, and the established component structure",
           ],
         },
+        perFileChanges: [
+          {
+            fileName: "src/App.tsx",
+            details: {
+              summary:
+                "I'll create a custom auto-resizing textarea component that",
+            },
+          },
+          {
+            fileName: "src/App2.tsx",
+            details: {
+              summary:
+                "I'll create a custom auto-resizing textarea component that",
+            },
+          },
+          {
+            fileName: "src/App4.tsx",
+            details: {
+              summary:
+                "I'll create a custom auto-resizing textarea component that",
+            },
+          },
+        ],
       },
     ],
   },
