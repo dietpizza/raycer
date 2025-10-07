@@ -1,11 +1,12 @@
 import type { FileChange, PlanSpecDataType } from "@/types";
 import { FileChangesRenderer, StepRenderer } from "@/components/shared";
 import { Pagination } from "@/components/ui";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ChatBubbleLeftRightIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
+import { useParams } from "react-router-dom";
 
 type PlanSpecCardProps = {
   isLoading?: boolean;
@@ -97,9 +98,13 @@ export function PlanSpecChat({ onUpdatePlan, onClose }: PlanSpecChatProps) {
   );
 }
 
-export function PlanSpecCard({ iterations, isLoading }: PlanSpecCardProps) {
+export function PlanSpecCard({ iterations }: PlanSpecCardProps) {
   const [iter, setIter] = useState(0);
   const [showChatWithPlan, setChatWithPlan] = useState(false);
+  const [isLoading, setLoading] = useState(false);
+  const [iterations2, setIterations] = useState([iterations[0]]);
+
+  const { id } = useParams();
 
   function onPageChange(step: number) {
     return () => {
@@ -111,34 +116,58 @@ export function PlanSpecCard({ iterations, isLoading }: PlanSpecCardProps) {
 
   function handleUpdatePlan() {
     setChatWithPlan(false);
+    setIterations((s) => [...s, iterations[iter + 1]]);
+    setTimeout(() => {
+      setIter((s) => s + 1);
+    }, 100);
   }
+
+  function checkPresence() {
+    return !!localStorage.getItem(`${id}-${iter}`);
+  }
+
+  useEffect(() => {
+    if (!checkPresence()) {
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+        localStorage.setItem(`${id}-${iter}`, "1");
+      }, 2000);
+    }
+  }, [iterations.length]);
 
   return (
     <div className="collapse collapse-arrow border outline-0">
       <input type="checkbox" name="my-accordion-2" defaultChecked />
       <div className="flex collapse-title justify-between">
         <p className="text-md font-semibold">Plan Specification</p>
-        {isLoading && <span className="loading h-6 w-6" />}
       </div>
       <div className="collapse-content text-sm">
-        {iterations.length > 1 && (
+        <div className="flex justify-center">
+          {isLoading && <span className="loading h-6 w-6" />}
+        </div>
+        {iterations2.length > 1 && (
           <div className="flex justify-end h-8 w-full ">
             <Pagination
               current={iter}
-              total={iterations.length}
+              total={iterations2.length}
               onLeftClick={onPageChange(-1)}
               onRightClick={onPageChange(1)}
             />
           </div>
         )}
-        <PlanSpecDetail detail={iterations[0]} />
-        {showChatWithPlan ? (
-          <PlanSpecChat
-            onClose={() => setChatWithPlan(false)}
-            onUpdatePlan={handleUpdatePlan}
-          />
-        ) : (
-          <PlanSpecFooter onChat={() => setChatWithPlan(true)} />
+        {!isLoading && (
+          <>
+            <PlanSpecDetail detail={iterations2[iter]} />
+            {showChatWithPlan ? (
+              <PlanSpecChat
+                onClose={() => setChatWithPlan(false)}
+                onUpdatePlan={handleUpdatePlan}
+              />
+            ) : (
+              <PlanSpecFooter onChat={() => setChatWithPlan(true)} />
+            )}
+          </>
         )}
       </div>
     </div>
